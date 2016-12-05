@@ -3,6 +3,7 @@
     <h1 class="ui center aligned header">
       Home Page
     </h1>
+    <div class="ui hidden divider"></div>
     <twit></twit>
   </div>
 </template>

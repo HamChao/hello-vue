@@ -1,32 +1,30 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-
+import firebase from 'firebase'
 import '!script!jquery/dist/jquery.min.js'
 import '!script!semantic-ui-css/semantic.min.js'
 // import '!style!css!semantic-ui-css/semantic.min.css'
 
 import App from './App'
-import Home from './components/Home'
-import About from './components/About'
+import router from './router'
 
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-  mode: 'history',
-  routes: [
-    { path: '/', component: Home },
-    { path: '/about', component: About },
-    { path: '*', redirect: '/' }
-  ]
+firebase.initializeApp({
+  apiKey: 'AIzaSyCutSDBlY6JzlYjDYgwp5fhrL7ZPlu0fB8',
+  authDomain: 'twitty-vue-21e0f.firebaseapp.com',
+  databaseURL: 'https://twitty-vue-21e0f.firebaseio.com',
+  storageBucket: 'twitty-vue-21e0f.appspot.com',
+  messagingSenderId: '105418165412'
 })
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  render (h) {
-    return h(App)
-  }
+  ...App
+
+  // render (h) {
+  //   return h(App)
+  // }
+
   // template: '<App/>',
   // components: { App }
 })

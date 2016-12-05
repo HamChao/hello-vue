@@ -7,7 +7,7 @@
           Mr.White
         </div>
         <div class="meta">
-          @wolter - 1h
+          @heisenberg - 1h
         </div>
         <div class="description">
           The chemistry teacher

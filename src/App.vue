@@ -39,7 +39,7 @@ export default {
 <style>
 @import '../node_modules/semantic-ui-css/semantic.min.css';
 .content {
-  padding-top: 70px;
+  padding-top: 100px;
   padding-bottom: 30px;
 }
 </style>
