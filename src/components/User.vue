@@ -1,18 +1,21 @@
 <template>
   <div>
-    User {{ id }}
-    <router-link :to="`/user/${id - 1}`">Prev</router-link>
-    <router-link :to="`/user/${id + 1}`">Next</router-link>
+    User: {{ this.$route.params.id }}
+    <profile-detail :profile="profile"></profile-detail>
   </div>
 </template>
 
 <script>
+  import { User } from '../services'
+  import ProfileDetail from './ProfileDetail'
+
   export default {
-    data () {
-      return {
-        id: 0
-      }
+    components: {
+      ProfileDetail
     },
+    data: () => ({
+      profile: {}
+    }),
     created () {
       this.reload()
     },
@@ -21,7 +24,9 @@
     },
     methods: {
       reload () {
-        this.id = +this.$route.params.id
+        User.subscribe(this.$route.params.id, (user) => {
+          this.profile = user || this.profile
+        })
       }
     }
   }
