@@ -7,8 +7,6 @@
 
     <!--Sending the data by emit-->
     <!--<profile-form @save="save"></profile-form> -->
-
-    {{ profile }}
   </div>
 </template>
 
@@ -44,7 +42,6 @@
        * Sending the data by model
        */
       save () {
-        console.log(this.profile)
         Me.set(this.profile)
           .then(() => {
             this.back()
