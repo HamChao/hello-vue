@@ -13,6 +13,9 @@
           The chemistry teacher
         </div>
       </div>
+      <div class="image">
+        <img>
+      </div>
       <div class="content">
         <span>
           <i class="heart outline like icon"></i>

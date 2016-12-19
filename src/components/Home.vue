@@ -9,43 +9,45 @@
           <button class="ui blue button" :class="{ 'loading disabled': posting }">Post</button>
         </form>
       </div>
-      <div v-for="tweet in tweets" class="ui segment">
-        <div>
-          <img class="ui avatar image" :src="findUserPhoto(tweet.owner)">
-          {{ findUserName(tweet.owner) }} - {{ tweet.timestamp | fromNow }}
-        </div>
-        {{ tweet.content }}
-      </div>
+      <tweet-segment :tweet="tweet" v-for="tweet in list"></tweet-segment>
     </div>
-    <h1 class="ui center aligned header">
-      Home Page
-    </h1>
-    <div class="ui hidden divider"></div>
-    <twit></twit>
   </div>
 </template>
 
 <script>
-import Twit from './Twit'
+import TweetSegment from './TweetSegment'
 import { Tweet, User } from '../services'
 
 export default {
   components: {
-    Twit
+    TweetSegment
   },
   data: () => ({
     input: '',
     posting: false,
     tweets: [],
-    users: []
+    users: {}
   }),
   created () {
     Tweet.list((list) => {
       this.tweets = list
     })
     User.list((list) => {
-      this.users = list
+      this.users = list.reduce((p, v) => {
+        p[v.$id] = v
+        return p
+      }, {})
     })
+  },
+  computed: {
+    list () {
+      return this.tweets.map((tweet) => {
+        return {
+          ...tweet,
+          user: this.users[tweet.owner]
+        }
+      })
+    }
   },
   methods: {
     post () {
@@ -57,14 +59,6 @@ export default {
         this.input = ''
         this.posting = false
       })
-    },
-    findUserName (id) {
-      const user = this.users.find(prop => prop.$id === id)
-      return user ? user.name : ''
-    },
-    findUserPhoto (id) {
-      const user = this.users.find(prop => prop.$id === id)
-      return user ? user.photo : ''
     }
   }
 }
