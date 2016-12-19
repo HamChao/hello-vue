@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import firebase from 'firebase'
+import moment from 'moment'
 import '!script!jquery/dist/jquery.min.js'
 import '!script!semantic-ui-css/semantic.min.js'
 // import '!style!css!semantic-ui-css/semantic.min.css'
@@ -16,8 +17,24 @@ firebase.initializeApp({
 })
 
 Vue.filter('upper', (value) =>
-typeof value === 'string' ? value.toUpperCase() : value
+  typeof value === 'string' ? value.toUpperCase() : value
 )
+
+const ticker = new Vue({
+  data: () => ({
+    tick: 0
+  }),
+  created () {
+    setInterval(() => {
+      this.tick = Date.now()
+    }, 10000)
+  }
+})
+
+Vue.filter('fromNow', (value) => {
+  ticker.tick
+  return moment(value).fromNow()
+})
 
 /* eslint-disable no-new */
 new Vue({
